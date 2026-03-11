@@ -56,9 +56,15 @@ public class Player : MonoBehaviour
         if (bullet != null && bullet.isEnemyBullet)
         {
             Debug.Log("GAME OVER");
+
+            GameManager gameManager = FindFirstObjectByType<GameManager>();
+            if (gameManager != null)
+            {
+                gameManager.HandlePlayerDied();
+            }
+
             Destroy(other);
             Destroy(gameObject);
-            Time.timeScale = 0f;
         }
     }
 }

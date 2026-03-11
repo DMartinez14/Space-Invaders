@@ -72,6 +72,12 @@ public class Enemy : MonoBehaviour
             if (bullet != null && !bullet.isEnemyBullet)
             {
                 Destroy(collision.gameObject);
+                EnemyFormation formation = GetComponentInParent<EnemyFormation>();
+                if (formation != null)
+                {
+                    formation.OnEnemyKilled();
+                }
+
                 Destroy(gameObject);
                 int points = 0;
                 switch (gameObject.tag)

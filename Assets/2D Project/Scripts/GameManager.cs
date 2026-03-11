@@ -1,42 +1,30 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highScoreText;
     public TextMeshProUGUI scoreMenu;
+    [SerializeField] private float endSceneDelay = 1.5f;
+
     private int currentScore = 0;
     private int highScore = 0;
-    private Coroutine hideScoreMenuCoroutine;
+    private bool gameEnded;
 
     void Start()
     {
+        Time.timeScale = 1f;
         highScore = PlayerPrefs.GetInt("HighScore", 0);
         Enemy.OnEnemyDied += OnEnemyDied;
         UpdateScoreDisplay();
-        // Start coroutine to hide scoreMenu after 3 seconds
-        if (scoreMenu != null && scoreMenu.gameObject.activeSelf)
-        {
-            hideScoreMenuCoroutine = StartCoroutine(HideTMP(scoreMenu, 3f));
-        }
     }
 
     void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+        if (gameEnded)
         {
-            if (scoreMenu != null && scoreMenu.gameObject.activeSelf)
-            {
-                // Stop the coroutine if it's running
-                if (hideScoreMenuCoroutine != null)
-                {
-                    StopCoroutine(hideScoreMenuCoroutine);
-                    hideScoreMenuCoroutine = null;
-                }
-                scoreMenu.gameObject.SetActive(false);
-            }
+            return;
         }
     }
 
@@ -52,24 +40,64 @@ public class GameManager : MonoBehaviour
         UpdateScoreDisplay();
     }
 
+    void OnDestroy()
+    {
+        Enemy.OnEnemyDied -= OnEnemyDied;
+    }
+
     void UpdateScoreDisplay()
     {
         if (scoreText != null)
         {
-            scoreText.text = $"Score: {currentScore.ToString("D4")}";
+            scoreText.text = $"Score \n {currentScore.ToString("D4")}";
         }
         if (highScoreText != null)
         {
-            highScoreText.text = $"High Score: {highScore.ToString("D4")}";
+            highScoreText.text = $"HI - Score \n {highScore.ToString("D4")}";
         }
     }
 
-    private System.Collections.IEnumerator HideTMP(TextMeshProUGUI tmpObject, float seconds)
+    public void HandlePlayerDied()
     {
-        yield return new WaitForSeconds(seconds);
-        if (tmpObject != null && tmpObject.gameObject.activeSelf)
+        EndGame();
+    }
+
+    public void HandleAllEnemiesCleared()
+    {
+        EndGame();
+    }
+
+    public void ResetHighScore()
+    {
+        highScore = 0;
+        PlayerPrefs.DeleteKey("HighScore");
+        PlayerPrefs.Save();
+        UpdateScoreDisplay();
+    }
+
+    private void EndGame()
+    {
+        if (gameEnded)
         {
-            tmpObject.gameObject.SetActive(false);
+            return;
+        }
+
+        gameEnded = true;
+        StartCoroutine(LoadCreditsAfterDelay());
+    }
+
+    private System.Collections.IEnumerator LoadCreditsAfterDelay()
+    {
+        yield return new WaitForSecondsRealtime(endSceneDelay);
+
+        SceneLoader sceneLoader = FindFirstObjectByType<SceneLoader>();
+        if (sceneLoader != null)
+        {
+            sceneLoader.LoadCredits();
+        }
+        else
+        {
+            Debug.LogWarning("SceneLoader not found. Could not load Credits scene.");
         }
     }
 }

@@ -42,5 +42,13 @@ public class EnemyFormation : MonoBehaviour
             // Speed up as fewer enemies remain (caps at 3x original speed)
             speed += 0.1f;
         }
+        else
+        {
+            GameManager gameManager = FindFirstObjectByType<GameManager>();
+            if (gameManager != null)
+            {
+                gameManager.HandleAllEnemiesCleared();
+            }
+        }
     }
 }
