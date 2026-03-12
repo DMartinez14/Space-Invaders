@@ -23,7 +23,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -49
+        value: -48
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -31,8 +31,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 15.1
-        value: 1116
+        time: 5
+        value: 2367
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -48,7 +48,7 @@ AnimationClip:
     script: {fileID: 0}
     flags: 0
   m_PPtrCurves: []
-  m_SampleRate: 60
+  m_SampleRate: 5
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -70,7 +70,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 15.1
+    m_StopTime: 5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -92,7 +92,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -49
+        value: -48
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -100,8 +100,8 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 15.1
-        value: 1116
+        time: 5
+        value: 2367
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -120,7 +120,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 15.066667
+  - time: 5
     functionName: 
     data: 
     objectReferenceParameter: {fileID: 0}

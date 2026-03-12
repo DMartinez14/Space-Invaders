@@ -95,8 +95,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796aad014e2107342a60ed88af81c745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ticClip: {fileID: 8300000, guid: cf8d3497ada7c4e56bb8e72b250d8ded, type: 3}
-  tacClip: {fileID: 8300000, guid: a7c2ca02b43a648fba5d01a43711e05c, type: 3}
+  deathClip: {fileID: 8300000, guid: 0898a31a617114c369e0ed7a8f2b52e6, type: 3}
+  shootClip: {fileID: 8300000, guid: 833105b722ec44e7a969b91a2749ded1, type: 3}
+  deathVolume: 0.6
+  shootVolume: 0.08
   bulletPrefab: {fileID: 2457785739244962049, guid: ad97a464c241b476aae8671014b0eac1, type: 3}
   shootOffsetTransform: {fileID: 2508793811890593176}
   shootInterval: 5
@@ -194,7 +196,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0

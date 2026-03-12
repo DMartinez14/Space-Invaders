@@ -2,8 +2,12 @@
 
 public class Enemy : MonoBehaviour
 {
-    public AudioClip ticClip;
-    public AudioClip tacClip;
+    [Header("Audio")]
+    public AudioClip deathClip;
+    public AudioClip shootClip;
+    [Range(0f, 1f)] public float deathVolume = 0.6f;
+    [Range(0f, 1f)] public float shootVolume = 0.15f;
+
     public GameObject bulletPrefab;
     public Transform shootOffsetTransform;
     public float shootInterval = 2f;
@@ -32,6 +36,11 @@ public class Enemy : MonoBehaviour
     {
         if (bulletPrefab != null && shootOffsetTransform != null)
         {
+            if (shootClip != null)
+            {
+                AudioSource.PlayClipAtPoint(shootClip, transform.position, shootVolume);
+            }
+
             GameObject shot = Instantiate(bulletPrefab, shootOffsetTransform.position, Quaternion.identity);
             Bullet bullet = shot.GetComponent<Bullet>();
             if (bullet != null)
@@ -78,6 +87,11 @@ public class Enemy : MonoBehaviour
                     formation.OnEnemyKilled();
                 }
 
+                if (deathClip != null)
+                {
+                    AudioSource.PlayClipAtPoint(deathClip, transform.position, deathVolume);
+                }
+
                 Destroy(gameObject);
                 int points = 0;
                 switch (gameObject.tag)
@@ -99,13 +113,5 @@ public class Enemy : MonoBehaviour
                 OnEnemyDied?.Invoke(points);
             }
         // todo - trigger death animation
-    }
-    public void PlayTicSound()
-    {
-        GetComponent<AudioSource>().PlayOneShot(ticClip);
-    }
-    public void PlayTacSound()
-    {
-        GetComponent<AudioSource>().PlayOneShot(tacClip);
     }
 }

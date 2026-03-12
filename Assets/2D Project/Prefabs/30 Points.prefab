@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 9028863291450958875}
   - component: {fileID: 574034938083333171}
   - component: {fileID: 536577810115624229}
-  - component: {fileID: 6488027701106893551}
-  - component: {fileID: 2615708776873605567}
+  - component: {fileID: 3522000875999395425}
+  - component: {fileID: -4907427798546803173}
   m_Layer: 0
   m_Name: 30 Points
   m_TagString: 20points
@@ -75,7 +75,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.7402805, y: 1.74}
+    oldSize: {x: 1.8202934, y: 1.7800001}
     newSize: {x: 2.56, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -95,8 +95,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796aad014e2107342a60ed88af81c745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ticClip: {fileID: 8300000, guid: cf8d3497ada7c4e56bb8e72b250d8ded, type: 3}
-  tacClip: {fileID: 8300000, guid: a7c2ca02b43a648fba5d01a43711e05c, type: 3}
+  deathClip: {fileID: 8300000, guid: 0898a31a617114c369e0ed7a8f2b52e6, type: 3}
+  shootClip: {fileID: 8300000, guid: 833105b722ec44e7a969b91a2749ded1, type: 3}
+  deathVolume: 0.6
+  shootVolume: 0.08
   bulletPrefab: {fileID: 2457785739244962049, guid: ad97a464c241b476aae8671014b0eac1, type: 3}
   shootOffsetTransform: {fileID: 2508793811890593176}
   shootInterval: 5
@@ -149,7 +151,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 37546384, guid: 412d89fe6875c4a9f9556020ddb25196, type: 3}
+  m_Sprite: {fileID: 1129642030, guid: 412d89fe6875c4a9f9556020ddb25196, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -159,7 +161,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!95 &6488027701106893551
+--- !u!95 &3522000875999395425
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -167,9 +169,9 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1841170095047829247}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ff3643c767e784444b0d28dd8d5ae5cd, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9c264ee6b993b4db9a530cb19d587f0a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -181,7 +183,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!82 &2615708776873605567
+--- !u!82 &-4907427798546803173
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,7 +196,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -5,10 +5,20 @@ public class Player : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform shootOffsetTransform;
+    
+    [Header("Audio")]
+    public AudioClip shootClip;
+    public AudioClip deathClip;
+    [Range(0f, 1f)] public float shootVolume = 0.35f;
+    [Range(0f, 1f)] public float deathVolume = 0.7f;
+
+    private Animator animator;
+    private AudioSource audioSource;
 
     void Start()
     {
-        // todo - get and cache animator
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
     
     void Update()
@@ -25,10 +35,13 @@ public class Player : MonoBehaviour
 
             Debug.Log("Bang!");
 
-            // todo - destroy the bullet after 3 seconds
+            // Destroy the bullet after 3 seconds
             Destroy(shot, 3f);
-            // todo - trigger shoot animation
-            GetComponent<Animator>().SetTrigger("Shot Trigger");
+            // Trigger shoot animation
+            if (animator != null)
+            {
+                animator.SetTrigger("Shot Trigger");
+            }
         }
         else if (Keyboard.current != null && Keyboard.current.leftArrowKey.isPressed)
         {
@@ -57,14 +70,34 @@ public class Player : MonoBehaviour
         {
             Debug.Log("GAME OVER");
 
+            // Play death sound directly from script.
+            if (deathClip != null)
+            {
+                AudioSource.PlayClipAtPoint(deathClip, transform.position, deathVolume);
+            }
+
+            // Notify GameManager
             GameManager gameManager = FindFirstObjectByType<GameManager>();
             if (gameManager != null)
             {
                 gameManager.HandlePlayerDied();
             }
 
+            // Destroy bullet immediately
             Destroy(other);
+
+            // No death animation flow, destroy player immediately.
             Destroy(gameObject);
         }
     }
+
+    // Called from an Animation Event in the shoot clip.
+    public void PlayShootSound()
+    {
+        if (audioSource != null && shootClip != null)
+        {
+            audioSource.PlayOneShot(shootClip, shootVolume);
+        }
+    }
+
 }
