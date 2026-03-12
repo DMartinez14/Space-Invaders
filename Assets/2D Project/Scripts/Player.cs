@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public Transform shootOffsetTransform;
+    public float deathAnimationDuration = 0.4f;
     
     [Header("Audio")]
     public AudioClip shootClip;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
 
     private Animator animator;
     private AudioSource audioSource;
+    private bool isDying;
 
     void Start()
     {
@@ -65,15 +67,27 @@ public class Player : MonoBehaviour
 
     private void HandleEnemyBulletHit(GameObject other)
     {
+        if (isDying)
+        {
+            return;
+        }
+
         Bullet bullet = other.GetComponent<Bullet>();
         if (bullet != null && bullet.isEnemyBullet)
         {
+            isDying = true;
             Debug.Log("GAME OVER");
 
             // Play death sound directly from script.
             if (deathClip != null)
             {
                 AudioSource.PlayClipAtPoint(deathClip, transform.position, deathVolume);
+            }
+
+            // Trigger death animation.
+            if (animator != null)
+            {
+                animator.SetTrigger("Death Trigger");
             }
 
             // Notify GameManager
@@ -86,8 +100,11 @@ public class Player : MonoBehaviour
             // Destroy bullet immediately
             Destroy(other);
 
-            // No death animation flow, destroy player immediately.
-            Destroy(gameObject);
+            // Disable controls while death animation is playing.
+            this.enabled = false;
+
+            // Destroy player after death animation.
+            Destroy(gameObject, deathAnimationDuration);
         }
     }
 
